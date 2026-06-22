@@ -1,0 +1,19 @@
+# devkitARM / GBA
+*.gba
+*.sav
+*.elf
+*.o
+*.d
+build/
+
+# macOS
+.DS_Store
+._*
+
+# VSCodium / VSCode
+.vscode/
+*.code-workspace
+
+# vim temp files
+*.swp
+*.swo
