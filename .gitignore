@@ -5,6 +5,7 @@
 *.o
 *.d
 build/
+tests/
 
 # macOS
 .DS_Store
@@ -13,6 +14,7 @@ build/
 # VSCodium / VSCode
 .vscode/
 *.code-workspace
+compile_flags.txt
 
 # vim temp files
 *.swp

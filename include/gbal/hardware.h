@@ -20,20 +20,20 @@
 #define GBAL_MEM_IO 0x04000000
 
 // Palette RAM (Background/Object). No 8bit write. Access only during HBLANK/VBLANK
-#define GBAL_MEM_PAL_BG ((uint16_t*)0x05000000) // Background palette
-#define GBAL_MEM_PAL_OBJ ((uint16_t*)0x05000200) // Sprite palette
+#define GBAL_MEM_PAL_BG ((volatile uint16_t*)0x05000000) // Background palette
+#define GBAL_MEM_PAL_OBJ ((volatile uint16_t*)0x05000200) // Sprite palette
 // Video RAM (VRAM). No 8bit write. Access only during HBLANK/VBLANK
-#define GBAL_MEM_VRAM ((uint16_t*)0x06000000) // Background VRAM space
-#define GBAL_MEM_VRAM_OBJ ((uint16_t*)0x06010000) // Sprite VRAM
+#define GBAL_MEM_VRAM ((volatile uint16_t*)0x06000000) // Background VRAM space
+#define GBAL_MEM_VRAM_OBJ ((volatile uint16_t*)0x06010000) // Sprite VRAM
 // bitmap modes (3-5): framebuffer covers lower half, sprite tiles >= 512 only
 #define GBAL_OBJ_TILE_BITMAP_MIN 512
-#define GBAL_MEM_OAM ((uint16_t*)0x07000000) // Object Attribute Memory
+#define GBAL_MEM_OAM ((volatile uint16_t*)0x07000000) // Object Attribute Memory
 
 // ========== Helpers for tile-map addressing ==========
 // Charblock: 16KB unit holding tile graphics (n = 0..3)
-#define GBAL_MEM_VRAM_CHARBLOCK(n) ((uint16_t*)(0x06000000 + (n) * 0x4000))
+#define GBAL_MEM_VRAM_CHARBLOCK(n) ((volatile uint16_t*)(0x06000000 + (n) * 0x4000))
 // Screenblock: 2KB unit holding a tilemap (n = 0..31)
-#define GBAL_MEM_VRAM_SCREENBLOCK(n) ((uint16_t*)(0x06000000 + (n) * 0x0800))
+#define GBAL_MEM_VRAM_SCREENBLOCK(n) ((volatile uint16_t*)(0x06000000 + (n) * 0x0800))
 
 // ========== I/O registers access helpers ==========
 // Use GBAL_REG16(off) for registers whose size is 2 bytes, GBAL_REG32(off) for registers whose size
