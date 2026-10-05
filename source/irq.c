@@ -80,7 +80,12 @@ void gbal_irq_vblank_init(void) {
 
 uint32_t gbal_irq_vblank_count(void) { return vblank_count; }
 
+// Sleeps until the next VBlank (BIOS function 0x05).
+// Requires IME = 1 and the VBlank bit in IE, otherwise it never returns.
 void gbal_wait_vblank(void) {
-    uint32_t start = vblank_count;
-    while(vblank_count == start); // busy wait
+    #ifdef __thumb__
+        __asm__ volatile ("swi 0x05" ::: "r0", "r1", "r2", "r3", "memory");
+    #else
+        __asm__ volatile ("swi 0x050000" ::: "r0", "r1", "r2", "r3", "memory");
+    #endif
 }
