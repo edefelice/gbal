@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 typedef void (*GbalIrqHandler)(void);
-typedef enum GBAL_IRQ_SOURCE {
+typedef enum GbalIrqSource {
     GBAL_IRQ_VBLANK = 0,
     GBAL_IRQ_HBLANK,
     GBAL_IRQ_VCOUNT,

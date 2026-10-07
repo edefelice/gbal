@@ -165,16 +165,16 @@
 // Bit meanings of the attributes live in the sprite HAL, not here.
 
 // One object entry in OAM (Tonc: OBJ_ATTR)
-typedef struct ObjAttributes {
+typedef struct GbalObjAttributes {
     uint16_t attr0;
     uint16_t attr1;
     uint16_t attr2;
     uint16_t fill;   // unused by OBJ; holds one affine param when interleaved
-} __attribute__((aligned(4))) ObjAttributes;
+} __attribute__((aligned(4))) GbalObjAttributes;
 
 // One affine matrix, interleaved in the 'fill' slots of 4 ObjAttributes (Tonc: OBJ_AFFINE)
 // Params pa..pd are signed fixed-point: int16_t, not uint16_t
-typedef struct ObjAffineMatrix {
+typedef struct GbalObjAffineMatrix {
     uint16_t fill0[3];
     int16_t  pa;
     uint16_t fill1[3];
@@ -183,14 +183,14 @@ typedef struct ObjAffineMatrix {
     int16_t  pc;
     uint16_t fill3[3];
     int16_t  pd;
-} __attribute__((aligned(4))) ObjAffineMatrix;
+} __attribute__((aligned(4))) GbalObjAffineMatrix;
 
 #define GBAL_OAM_OBJECTS  ((volatile ObjAttributes*)GBAL_MEM_OAM) // GBAL_OAM_OBJECTS[i]: object i (0..127)
 // GBAL_OAM_AFFINE_MATRICES[i]: matrix i (0..31)
 #define GBAL_OAM_AFFINE_MATRICES ((volatile ObjAffineMatrix*)GBAL_MEM_OAM)
 
 // ========== Background / Palette types ==========
-typedef uint16_t ScreenEntry;   // tilemap entry: tile idx + flip + palbank (Tonc: SCR_ENTRY)
-typedef uint16_t PaletteBank[16]; // a 16-colour palette bank (4bpp)
+typedef uint16_t GbalScreenEntry;   // tilemap entry: tile idx + flip + palbank (Tonc: SCR_ENTRY)
+typedef uint16_t GbalPaletteBank[16]; // a 16-colour palette bank (4bpp)
 
 #endif // GBAL_HARDWARE_H

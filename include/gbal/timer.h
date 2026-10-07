@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include "gbal/irq.h"
 
-typedef enum GBAL_TIMER {
+typedef enum GbalTimer {
     GBAL_TIMER0 = 0,
     GBAL_TIMER1,
     GBAL_TIMER2,
@@ -12,7 +12,7 @@ typedef enum GBAL_TIMER {
     GBAL_TIMER_COUNT
 } GbalTimer;
 
-typedef enum GBAL_TIMER_PRESCALER {
+typedef enum GbalTimerPrescaler {
     GBAL_TIMER_DIV_1 = 0,
     GBAL_TIMER_DIV_64,
     GBAL_TIMER_DIV_256,
