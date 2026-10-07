@@ -27,16 +27,16 @@ void gbal_timer_start(GbalTimer timer, uint16_t reload, GbalTimerPrescaler presc
     if (timer < GBAL_TIMER_COUNT) {
         // Keep the IRQ-enable bit set by gbal_timer_set_handler: the full-register write
         // below would otherwise clear it and the timer would never fire.
-        uint16_t timer_irq_bit = (*timer_control[timer] & (TIMER_IRQ_ENABLE));
-        *timer_control[timer] &= ~(TIMER_ENABLE);
+        uint16_t timer_irq_bit = (*timer_control[timer] & TIMER_IRQ_ENABLE);
+        *timer_control[timer] &= ~TIMER_ENABLE;
         *timer_counter[timer] = reload;
-        *timer_control[timer] = prescaler | timer_irq_bit | (TIMER_ENABLE);
+        *timer_control[timer] = prescaler | timer_irq_bit | TIMER_ENABLE;
     }
 }
 
 void gbal_timer_stop(GbalTimer timer) {
     if (timer < GBAL_TIMER_COUNT) {
-        *timer_control[timer] &= ~(TIMER_ENABLE); 
+        *timer_control[timer] &= ~TIMER_ENABLE; 
     }
 }
 
@@ -53,10 +53,10 @@ void gbal_timer_set_handler(GbalTimer timer, GbalIrqHandler handler) {
     if (timer < GBAL_TIMER_COUNT) {
         gbal_irq_register((GbalIrqSource)(GBAL_IRQ_TIMER0 + timer), handler);
         if (handler) {
-            *timer_control[timer] |= (TIMER_IRQ_ENABLE);
+            *timer_control[timer] |= TIMER_IRQ_ENABLE;
         }
         else {
-            *timer_control[timer] &= ~(TIMER_IRQ_ENABLE);
+            *timer_control[timer] &= ~TIMER_IRQ_ENABLE;
         }
     }
 }
@@ -64,10 +64,10 @@ void gbal_timer_set_handler(GbalTimer timer, GbalIrqHandler handler) {
 void gbal_timer_start_cascade(GbalTimer timer, uint16_t reload) {
     if (timer > GBAL_TIMER0 && timer < GBAL_TIMER_COUNT) {
         // Same as gbal_timer_start.
-        uint16_t timer_irq_bit = (*timer_control[timer] & (TIMER_IRQ_ENABLE));
-        *timer_control[timer] &= ~(TIMER_ENABLE);
+        uint16_t timer_irq_bit = (*timer_control[timer] & TIMER_IRQ_ENABLE);
+        *timer_control[timer] &= ~TIMER_ENABLE;
         *timer_counter[timer] = reload;
-        *timer_control[timer] = (TIMER_CASCADE_ENABLE) | (TIMER_ENABLE) | timer_irq_bit;
+        *timer_control[timer] = TIMER_CASCADE_ENABLE | TIMER_ENABLE | timer_irq_bit;
     }
 }
 
